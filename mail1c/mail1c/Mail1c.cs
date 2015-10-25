@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace mail1c
 {
-    public class Class1
+    public class Mail1C
     {
     }
 }
