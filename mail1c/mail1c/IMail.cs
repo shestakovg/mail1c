@@ -11,7 +11,7 @@ namespace mail1c
     interface IMail
     {
         [DispId(1)]
-        void ConnectIMAP(string server, int port, string username, string password);
+        bool ConnectIMAP(string server, int port, string username, string password);
         void CloseConnection();
         bool SendMessage(string to, string tc, string[] attachments);
     }
