@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mail1c", "mail1c\mail1c.csproj", "{3C1189E1-A4F6-4CA1-9026-FE54DFEFBD73}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mailTest", "mailTest\mailTest.csproj", "{09FC39DA-AA65-456E-8F28-4E95D5CBF175}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{3C1189E1-A4F6-4CA1-9026-FE54DFEFBD73}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C1189E1-A4F6-4CA1-9026-FE54DFEFBD73}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C1189E1-A4F6-4CA1-9026-FE54DFEFBD73}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09FC39DA-AA65-456E-8F28-4E95D5CBF175}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09FC39DA-AA65-456E-8F28-4E95D5CBF175}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09FC39DA-AA65-456E-8F28-4E95D5CBF175}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09FC39DA-AA65-456E-8F28-4E95D5CBF175}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

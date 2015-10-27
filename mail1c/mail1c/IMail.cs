@@ -8,12 +8,13 @@ using System.Threading.Tasks;
 namespace mail1c
 {
     [Guid("36637F39-9209-419C-AC11-CC32C6E2BFBE")]
-    interface IMail
+    public interface IMail
     {
         [DispId(1)]
         bool ConnectIMAP(string server, int port, string username, string password);
+        bool ConnectSmtp(string server,   string username, string password);
         void CloseConnection();
-        bool SendMessage(string to, string tc, string[] attachments);
+        bool SendMessage(string to, string tc, string attachment, string messageBody, string subject);
     }
 
     [Guid("A4420A21-152A-4D2A-9FCB-7FE20E5D1B71"), InterfaceType(ComInterfaceType.InterfaceIsIDispatch)]
