@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Mail1c.cs" />
     <Compile Include="IMail.cs" />
+    <Compile Include="MailStructure.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -16,6 +16,7 @@ namespace mail1c
         void CloseConnection();
         bool SendMessage(string to, string tc, string attachment, string messageBody, string subject);
         bool SendMessage2(string to, string tc, string attachment, string messageBody, string subject);
+        MailStructure 
     }
 
     [Guid("A4420A21-152A-4D2A-9FCB-7FE20E5D1B71"), InterfaceType(ComInterfaceType.InterfaceIsIDispatch)]
