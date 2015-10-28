@@ -12,9 +12,10 @@ namespace mail1c
     {
         [DispId(1)]
         bool ConnectIMAP(string server, int port, string username, string password);
-        bool ConnectSmtp(string server,   string username, string password);
+        bool ConnectSmtp(string server,   string username, string password, int port);
         void CloseConnection();
         bool SendMessage(string to, string tc, string attachment, string messageBody, string subject);
+        bool SendMessage2(string to, string tc, string attachment, string messageBody, string subject);
     }
 
     [Guid("A4420A21-152A-4D2A-9FCB-7FE20E5D1B71"), InterfaceType(ComInterfaceType.InterfaceIsIDispatch)]

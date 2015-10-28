@@ -8,6 +8,8 @@ using Limilabs.Client.IMAP;
 using Limilabs.Client.SMTP;
 using Limilabs.Mail.Fluent;
 using System.Reflection;
+using System.Net.Mail;
+using System.Net;
 //using Limilabs.Mail.Headers;
 namespace mail1c
 {
@@ -67,11 +69,12 @@ namespace mail1c
         //}
 
 
-        public bool ConnectSmtp(string server,   string username, string password)
+        public bool ConnectSmtp(string server,   string username, string password, int port)
         {
             this._username = username;
             this._server = server;
             this._password = password;
+            this._port = port;
             return true;
         }
 
@@ -147,6 +150,65 @@ namespace mail1c
             //    .Create();
 
             return (result.Status == SendMessageStatus.Success);
+        }
+
+        private System.Web.Mail.MailMessage createEmail2(string to, string tc, string attachment, string messageBody, string subject)
+        {
+            System.Web.Mail.MailMessage message = new System.Web.Mail.MailMessage();
+            message.Fields.Add
+            ("http://schemas.microsoft.com/cdo/configuration/smtpserver",
+                          this._server);
+            message.Fields.Add
+                ("http://schemas.microsoft.com/cdo/configuration/smtpserverport",
+                              "465");
+            message.Fields.Add
+                ("http://schemas.microsoft.com/cdo/configuration/sendusing",
+                              "2");
+            message.Fields.Add
+        ("http://schemas.microsoft.com/cdo/configuration/smtpauthenticate", "1");
+            //Use 0 for anonymous
+            message.Fields.Add
+            ("http://schemas.microsoft.com/cdo/configuration/sendusername",
+                this._username);
+            message.Fields.Add
+            ("http://schemas.microsoft.com/cdo/configuration/sendpassword",
+                 this._password);
+            message.Fields.Add
+            ("http://schemas.microsoft.com/cdo/configuration/smtpusessl",
+                 "true");
+            message.From = this._username;
+            message.To = to;
+            
+            message.Subject = subject;
+            message.Body = messageBody;
+            if (attachment != null && attachment!=String.Empty)
+                message.Attachments.Add(new System.Web.Mail.MailAttachment(attachment));
+            return message;
+        }
+
+        public bool SendMessage2(string to, string tc, string attachment, string messageBody, string subject)
+        {
+            System.Web.Mail.SmtpMail.SmtpServer = this._server+":"+this._port.ToString();
+            
+            System.Web.Mail.SmtpMail.Send(createEmail2(to, tc, attachment, messageBody, subject));
+            //SmtpClient client = new System.Net.Mail.SmtpClient(this._server, 465);
+            //client.EnableSsl = true;
+            // CredentialCache.DefaultNetworkCredentials.UserName = this._username;
+            //CredentialCache.DefaultNetworkCredentials.Password = this._password;
+            //client.UseDefaultCredentials = false;
+            //client.Credentials = new System.Net.NetworkCredential(this._username, this._password);// CredentialCache.DefaultNetworkCredentials;
+            
+            //client.Timeout = 15000;
+            //try
+            //{
+            //    client.Send(createEmail2( to,  tc,  attachment,  messageBody,  subject));
+            //    return true;
+            //}
+            //catch (Exception ex)
+            //{
+            //    return false;    
+            //}    
+            return false;    
         }
     }
 }
