@@ -8,10 +8,12 @@ namespace mail1c
 {
     public class MailStructure
     {
-        public int Id;
-        public int MailDate;
+        public long Id;
+        public string Uuid;
+        public string MailDate;
         public string From;
         public string Subject;
+        public string Body;
         public bool AttachmentExist;
         public string AttachmentFiles;
     }

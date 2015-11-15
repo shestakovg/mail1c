@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("mail1c")]
+[assembly: AssemblyTitle("pop3test")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("mail1c")]
+[assembly: AssemblyProduct("pop3test")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -17,10 +17,10 @@ using System.Runtime.InteropServices;
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
 // COM, set the ComVisible attribute to true on that type.
-[assembly: ComVisible(true)]
-[assembly: AssemblyKeyFile("mail1c.snk")]
+[assembly: ComVisible(false)]
+
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("1bfd3978-ced8-4cd4-8030-bfeeb675ffb6")]
+[assembly: Guid("e32d3c91-80c2-4490-bad5-38db78d86de2")]
 
 // Version information for an assembly consists of the following four values:
 //
