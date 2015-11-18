@@ -20,8 +20,9 @@ namespace mailTest
         public void TestRecive()
         {
             IMail mail = new Mail1C();
-            mail.ConnectIMAP("imap.ukr.net", 993, "gennadiy78@ukr.net", "jgnbvf");
-            var msg = mail.GetMessages();
+            mail.ConnectIMAP("imap.ukr.net", 993, "mrzed@ukr.net", "Drag0n");
+            //mail.ConnectIMAP("imap.ukr.net", 993, "gennadiy78@ukr.net", "jgnbvf");
+            var msg = mail.GetMessages("", "", "", 100);
             mail.CloseConnection();
             //IMail mail = new Mail1C();
             //mail.ConnectPop3("imap.ukr.net", 993, "gennadiy78@ukr.net", "jgnbvf");

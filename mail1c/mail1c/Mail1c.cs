@@ -59,6 +59,7 @@ namespace mail1c
             }
             catch (Exception)
             {
+                this.CloseConnection();    
                 return false;
             }
         }
@@ -66,7 +67,7 @@ namespace mail1c
         public MailStructure[] GetMessages(string datefrom = "", string dateto = "", string email = "", int limit = 0,
             int exitAttachment = 0)
         {
-            if (this.ic == null) throw new Exception("POP3 connection is't init");
+            if (this.ic == null) throw new Exception("IMAP connection isn't init");
             if (limit == 0) limit = 100;
             DateTime dateFrom = new DateTime(2000, 1, 1);
             DateTime dateTo = new DateTime(5000, 1, 1);
@@ -77,7 +78,7 @@ namespace mail1c
             this.ic.IdleTimeout = 0;
             List<MailStructure> result = new List<MailStructure>();
             int startIndex = (mc - limit < 0 ? 0 : mc - limit);
-            MailMessage[] mm = ic.GetMessages(startIndex, limit, false);//(mc-limit-1, limit);
+            MailMessage[] mm = ic.GetMessages(startIndex, mc -1, false);//(mc-limit-1, limit);
             
             int i = 0;
             //for (int i = mc; i >= 1; i--)
@@ -88,28 +89,38 @@ namespace mail1c
                
                 if (searchStatus && (currentCount++ <= limit - 1))
                 {
-                    MailStructure ms = new MailStructure()
+                    try
                     {
-                        Id = i,
-                        MailDate = m.Date.ToString(),
-                        From = m.From.ToString(),
-                        Subject = m.Subject,
-                        Body = m.Body,
-                        Uuid = m.Uid,
-                        AttachmentExist = (m.Attachments.Count > 0)
-                    };
 
-                    string att = "";
-                    int attCnt = 1;
-                    foreach (AE.Net.Mail.Attachment attachment in m.Attachments)
-                    {
-                        if (att != "") att += ";";
-                        att += attachment.Filename;
+                    
+                        MailStructure ms = new MailStructure()
+                        {
+                            Id = i,
+                            MailDate = m.Date.ToString(),
+                            From = m.From.ToString(),
+                            Subject = m.Subject,
+                            Body = m.Body,
+                            Uuid = m.Uid,
+                            AttachmentExist = (m.Attachments.Count > 0)
+                        };
+
+                        string att = "";
+                        int attCnt = 1;
+                        foreach (AE.Net.Mail.Attachment attachment in m.Attachments)
+                        {
+                            if (att != "") att += ";";
+                            att += attachment.Filename;
+                        }
+                        ms.AttachmentFiles = att;
+                        result.Add(
+                            ms
+                            );
                     }
-                    ms.AttachmentFiles = att;
-                    result.Add(
-                        ms
-                        );
+                    catch (Exception)
+                    {
+
+                     
+                    }
                 }
                 else
                 {
