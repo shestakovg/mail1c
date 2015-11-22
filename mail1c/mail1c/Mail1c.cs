@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using AE.Net.Mail;
@@ -15,7 +16,7 @@ namespace mail1c
         private string _username;
         private string _password;
         private int _port;
-
+        private List<MessageQueue> _messageQueue = new List<MessageQueue>();
 //        private POPClient _popCLient = null;
         private ImapClient ic = null;
         public string Server
@@ -128,6 +129,7 @@ namespace mail1c
                 }
 
             }
+
             return result.ToArray();
 
         }
@@ -461,5 +463,87 @@ namespace mail1c
                 return false;
             }
         }
+
+
+        public string GetMessagesToStringJson(string datefrom = "", string dateto = "", string email = "", int limit = 10, int exitAttachment = 0)
+        {
+            MailJsonSerializer serializer = new MailJsonSerializer("emails",
+                GetMessages(datefrom, dateto, email, limit, exitAttachment));
+            //return serializer.ToJSONRepresentation( );
+            return serializer.ToJSONRepresentation();
+        }
+
+
+        public string GetMessagesToStringXml(string datefrom = "", string dateto = "", string email = "", int limit = 10, int exitAttachment = 0)
+        {
+            MailJsonSerializer serializer = new MailJsonSerializer("emails",
+               GetMessages(datefrom, dateto, email, limit, exitAttachment));
+            //return serializer.ToJSONRepresentation( );
+            return serializer.ToXMLRepresentation();
+        }
+
+
+        public string GetMessagesCount(string datefrom = "", string dateto = "", string email = "", int limit = 10, int exitAttachment = 0)
+        {
+            MailStructure[] structure = GetMessages(datefrom, dateto, email, limit, exitAttachment);
+            Guid id = Guid.NewGuid();
+            this._messageQueue.Add(new MessageQueue(structure, id));
+            return id.ToString() + "#" + structure.Length.ToString();
+        }
+
+
+
+
+        public string GetMessageField(string id, int messageNumber, string fieldName)
+        {
+            Guid iGuid;
+            try
+            {
+                iGuid = new Guid(id);
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception("Can't convert " + id + " to Guid");
+            }
+            MessageQueue queue = null;
+            string result="";
+            foreach (MessageQueue q in this._messageQueue)
+            {
+                if (q.QueueId == iGuid)
+                {
+                    queue = q;
+                    MailStructure mailStructure= queue.GetMailStructure(messageNumber);
+                    result = mailStructure.GetType().GetField(fieldName).GetValue(mailStructure).ToString();
+                    //GetMembers(BindingFlags.NonPublic | BindingFlags.Instance);
+                }
+            }
+            if (queue==null) throw new Exception("Messages with id "+id+" not exists");
+            return result;
+        }
+
+        public void RemoveMessages(string id)
+        {
+            Guid iGuid;
+            try
+            {
+                iGuid = new Guid(id);
+            }
+            catch (Exception e)
+            {
+                
+                throw new Exception("Can't convert "+id+" to Guid");
+            }
+
+            foreach (MessageQueue q in this._messageQueue)
+            {
+                if (q.QueueId == iGuid)
+                {
+                    this._messageQueue.Remove(q);
+                    return;
+                }
+            }
+        }
     }
 }
+

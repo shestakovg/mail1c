@@ -43,6 +43,7 @@
     <Reference Include="AE.Net.Mail">
       <HintPath>..\..\..\..\..\..\..\ProjectsVit\aenetmail-master\bin\Debug\AE.Net.Mail.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
@@ -51,11 +52,14 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Serialization" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Mail1c.cs" />
     <Compile Include="IMail.cs" />
+    <Compile Include="MailJsonSerializer.cs" />
     <Compile Include="MailStructure.cs" />
+    <Compile Include="MessageQueue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -18,10 +18,15 @@ namespace mail1c
         //bool SendMessage(string to, string tc, string attachment, string messageBody, string subject);
         bool SendMessage(string to,string subject, string messageBody = "", string tc = "", string attachment ="" );
         MailStructure[] GetMessages(string datefrom = "", string dateto = "", string email = "", int limit = 10, int exitAttachment = 0);
+        string GetMessagesCount(string datefrom = "", string dateto = "", string email = "", int limit = 10, int exitAttachment = 0);
+        string GetMessagesToStringJson(string datefrom = "", string dateto = "", string email = "", int limit = 10, int exitAttachment = 0);
+        string GetMessagesToStringXml(string datefrom = "", string dateto = "", string email = "", int limit = 10, int exitAttachment = 0);
         //MailStructure[] GetMessages2(string datefrom = "", string dateto = "", string email = "", int limit = 1000, int exitAttachment = 0);
         //bool ConnectPop3(string server, int port, string username, string password);
         //void ClosePop3();
         bool GetAttachments(string uuid, string path);
+        string GetMessageField(string id, int messageNumber, string fieldName);
+        void RemoveMessages(string id);
     }
 
     [Guid("A4420A21-152A-4D2A-9FCB-7FE20E5D1B71"), InterfaceType(ComInterfaceType.InterfaceIsIDispatch)]

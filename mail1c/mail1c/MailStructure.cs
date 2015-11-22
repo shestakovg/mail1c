@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace mail1c
 {
+  
     public class MailStructure
     {
         public long Id;
