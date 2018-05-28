@@ -17,6 +17,7 @@ namespace mail1c
         private string _password;
         private int _port;
         private List<MessageQueue> _messageQueue = new List<MessageQueue>();
+        private List<MailMessage> messages = new List<MailMessage>();
 //        private POPClient _popCLient = null;
         private ImapClient ic = null;
         public string Server
@@ -79,8 +80,10 @@ namespace mail1c
             this.ic.IdleTimeout = 0;
             List<MailStructure> result = new List<MailStructure>();
             int startIndex = (mc - limit < 0 ? 0 : mc - limit);
-            MailMessage[] mm = ic.GetMessages(startIndex, mc -1, false);//(mc-limit-1, limit);
             
+            MailMessage[] mm = ic.GetMessages(startIndex, mc -1, false);//(mc-limit-1, limit);
+
+            messages.Clear();
             int i = 0;
             //for (int i = mc; i >= 1; i--)
             foreach (MailMessage m in mm)
@@ -92,8 +95,8 @@ namespace mail1c
                 {
                     try
                     {
+                        messages.Add(m);
 
-                    
                         MailStructure ms = new MailStructure()
                         {
                             Id = i,
@@ -283,8 +286,8 @@ namespace mail1c
                  "true");
             message.From = this._username;
             message.To = to;
-            if (tc != String.Empty)
-                message.Cc = tc;
+            if (!String.IsNullOrEmpty(tc))                message.Cc = tc;
+
             message.Subject = subject;
             message.Body = messageBody;
             if (attachment != null && attachment != String.Empty)
@@ -300,7 +303,7 @@ namespace mail1c
                 System.Web.Mail.SmtpMail.Send(createEmail2(to, tc, attachment, messageBody, subject));
                 return true;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return false;
             }
@@ -522,6 +525,23 @@ namespace mail1c
             return result;
         }
 
+        public void DeleteMessage(int messageId)
+        {
+            MailMessage m;
+            if (messages.Count > messageId)
+            {
+                m = messages[messageId];
+                //ic.SelectMailbox("Trash");
+                // ic.DeleteMessage(m);
+                //ic.SelectMailbox("Trash");
+                try
+                {
+                    ic.MoveMessage(m.Uid, "Trash");
+                }
+                catch  { }
+                
+            }
+        }
         public void RemoveMessages(string id)
         {
             Guid iGuid;

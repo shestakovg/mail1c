@@ -27,6 +27,7 @@ namespace mail1c
         bool GetAttachments(string uuid, string path);
         string GetMessageField(string id, int messageNumber, string fieldName);
         void RemoveMessages(string id);
+        void DeleteMessage(int messageId);
     }
 
     [Guid("A4420A21-152A-4D2A-9FCB-7FE20E5D1B71"), InterfaceType(ComInterfaceType.InterfaceIsIDispatch)]
