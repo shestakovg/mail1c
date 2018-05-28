@@ -12,8 +12,8 @@ namespace mailTest
         {
             IMail mail = new Mail1C();
             mail.ConnectSmtp("smtp.ukr.net", "_12321@ukr.net", "12323454", 465);
-            for (int i = 0; i < 1; i++ )
-                mail.SendMessage("shestakov.g@gmail.com","Hi","test", null, "c:\\temp\\repair.ps1");
+            for (int i = 0; i < 1; i++)
+                mail.SendMessage("shestakov.g@gmail.com", "Hi", "test");//, null, "c:\\temp\\repair.ps1");
         }
 
         [TestMethod]
